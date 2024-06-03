@@ -10,7 +10,7 @@ tkinter : 範本來自[CustomTkinter](https://github.com/TomSchimansky/CustomTki
 ## DQN筆記
 
 - **DQN流程** : 將數據集輸入到`JSP_env `⭢ `Agent / RL_network`處理和分析數據 ⭢ `action_space`選擇行動 ⭢ 當記憶體儲存超過 *batch_size* 開始進行抽樣學習 ⭢ 當所有工單分配完畢即完成1個*epoch* ⭢ 完成所有 *epoch* 後輸出最好的排程結果。<br>
-<br>![alt text](圖片1.png)<br>
+<br>![圖片1](https://github.com/woodwood0/DQN-GA-tkinter-for-job-shop-scheduling-problem/assets/171545924/f1c26785-3dee-49cb-9f25-f5964e3d995f)<br>
 <br>
 
 - **Dueling DQN** : 將一個神經網絡的架構分成兩個獨立的路徑：一個計算狀態值 𝑉(𝑠)，另一個計算各個動作的優勢 𝐴(𝑠,𝑎)，最終輸出 𝑄(𝑠,𝑎) 是這兩個部分的組合，此結構更有效地學習狀態值與個別動作的重要性。<p align="center">
