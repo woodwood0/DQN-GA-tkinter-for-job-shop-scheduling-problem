@@ -13,18 +13,20 @@ tkinter : 範本來自[CustomTkinter](https://github.com/TomSchimansky/CustomTki
 - **DQN流程** : 將數據集輸入到`JSP_env `⭢ `Agent / RL_network`處理和分析數據 ⭢ `action_space`選擇行動 ⭢ 當記憶體儲存超過 *batch_size* 開始進行抽樣學習 ⭢ 當所有工單分配完畢即完成1個*epoch* ⭢ 完成所有 *epoch* 後輸出最好的排程結果。<br>
 <br>![293317671-7900ee85-b7e6-4cf2-bda3-3233beee762b](https://github.com/woodwood0/DQN-GA-tkinter-for-job-shop-scheduling-problem/assets/171545924/78be0748-4c21-4d73-a0f2-1e01ef3ce810)<br>
 <br>
+
 - **Dueling DQN** : 將一個神經網絡的架構分成兩個獨立的路徑：一個計算狀態值 𝑉(𝑠)，另一個計算各個動作的優勢 𝐴(𝑠,𝑎)，最終輸出 𝑄(𝑠,𝑎) 是這兩個部分的組合，此結構更有效地學習狀態值與個別動作的重要性。
-Q(s, a) = V(s) + \left( A(s, a) - \frac{1}{|A|} \sum_{a'} A(s, a') \right) <br>
+![CodeCogsEqn (1)](https://github.com/woodwood0/DQN-GA-tkinter-for-job-shop-scheduling-problem/assets/171545924/3f03e13e-06d8-48a9-834a-637f896e8436)
+<br>
 其公式表達 𝑄(𝑠,𝑎) 為在當前狀態 𝑠，𝑉(𝑠) 和相對具有優勢的執行動作 𝑎 所加總的價值。<br>
 𝑉(𝑠) 代表在給定狀態 𝑠 下的總體價值，而 𝐴(𝑠,𝑎) 表示執行動作 𝑎 相對於其他可選動作的優勢，為了防止 𝑄(𝑠,𝑎) 脫離實際值，從每個優勢值中扣除所有可能動作的優勢值平均。當所有動作的優勢均為零時，即各個動作相對於彼此沒有額外的價值或優勢，此時𝑄(𝑠,𝑎) 完全由狀態值 𝑉(𝑠) 決定，𝑄(𝑠,𝑎) 的評估是以整體狀態為基準，而非單一動作，因此整體的價值估計不會被動作的選擇所偏移。<br>
 
 - **Double DQN** : 旨在解決原始DQN中的過度估計問題（因為在選擇和評估最佳動作時同時使用同一網絡），透過使用**目標網絡**和**評估網絡**分離最大𝑄值的選擇與評估。每次更新時，評估網絡負責選擇最佳動作，目標網絡負責評估該動作的𝑄值，這樣能減少值的估計偏差。
 	1. 首先，使用評估網絡來選擇在當前狀態 𝑠 下估計最佳的動作 𝑎：
-	a^* = \arg\max_a Q(s, a; \theta) <br>
+	![CodeCogsEqn](https://github.com/woodwood0/DQN-GA-tkinter-for-job-shop-scheduling-problem/assets/171545924/32d70def-7c40-4805-9c1b-9506c7408fbc) <br>
 	其中 𝜃 是評估網絡的參數。<br>
 
 	2. 然後，使用目標網絡來評估這個動作的𝑄值：
-	Q(s, a^*; \theta^-) <br>
+	![CodeCogsEqn (2)](https://github.com/woodwood0/DQN-GA-tkinter-for-job-shop-scheduling-problem/assets/171545924/4c601588-640b-4e50-a71c-9ffb195b4e62) <br>
 	其中 𝜃− 是目標網絡的參數。<br>
 
 	其公式表達在當前狀態 𝑠，先以評估網絡選擇最具優勢的動作 𝑎 ，再用目標網路評估該動作的𝑄值。其中目標網絡的參數 𝜃− 會定期從評估網絡的參數 𝜃 複製更新（頻率在程式碼中自行設定）。這種更新策略確保了目標網絡在一定時間內保持固定，讓評估網絡能在一個相對穩定的環境下學習，減少因快速變動的目標而導致的學習不穩定和估計偏差。<br>
