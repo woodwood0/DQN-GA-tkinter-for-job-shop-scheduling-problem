@@ -154,7 +154,7 @@ class GeneticAlgorithmJSSP:
         plt.show()
 
     def plot_gantt_chart(self):
-        chart_studio.tools.set_credentials_file(username='woodwoodlynn', api_key='OLFKpRJTWLPn05RS9Z8k')
+        chart_studio.tools.set_credentials_file(username='', api_key='')
         m_keys = [j + 1 for j in range(self.num_mc)]
         j_keys = [j for j in range(self.num_job)]
         key_count = {key: 0 for key in j_keys}
