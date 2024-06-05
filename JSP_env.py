@@ -7,7 +7,7 @@ import chart_studio.plotly as py
 import datetime
 
 def plot_gantt_chart(Machines):
-    chart_studio.tools.set_credentials_file(username='woodwoodlynn', api_key='OLFKpRJTWLPn05RS9Z8k')
+    chart_studio.tools.set_credentials_file(username='', api_key='')
     Job_text = ['J' + str(i + 1) for i in range(100)]
     Machine_text = ['M' + str(i + 1) for i in range(50)]
 
